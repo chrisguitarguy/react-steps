@@ -39,3 +39,22 @@ Then run...
 ```
 ./node_modules/.bin/webpack
 ```
+
+### Using the Webpack Dev Server
+
+The [webpack dev server](https://webpack.github.io/docs/webpack-dev-server.html)
+provides a way to server your bundle and update it as changes happen.
+
+```
+npm install --save-dev webpack-dev-server
+```
+
+Then run...
+
+```
+./node_modules/.bin/webpack-dev-server --inline
+```
+
+And navigate to [http://localhost:8080/](http://localhost:8080/).
+
+Test out making a change to `src/app.js`.

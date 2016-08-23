@@ -10,7 +10,7 @@ module.exports = {
         path: path.join(__dirname, 'build'),
         filename: '[name].js',
         sourceMapFilename: '[file].map',
-        publicPath: '/',
+        publicPath: '/build/',
     },
     module: {
         loaders: [
