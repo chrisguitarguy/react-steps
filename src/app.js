@@ -1,4 +1,5 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+import React from 'react'; // necessary for the jsx transform to work
+import ReactDOM from 'react-dom';
+import Hello from './components/Hello';
 
-ReactDOM.render(<h1>Hello, World</h1>, document.getElementById('app'));
+ReactDOM.render(<Hello name="Chris" />, document.getElementById('app'));

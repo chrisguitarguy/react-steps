@@ -8,53 +8,39 @@ see the first step.
 The goal here is to get a really quick overview of [React](https://facebook.github.io/react/)
 by taking an example app from the first steps through routing.
 
-# Step 2 (The Bundling)
+# Step 3 (Components & ES What)
 
 ### Goals
 
-- Use a module bundler to get all dependencies in one place.
-- Explore the webpack dev server
+- Extract the Hello, World into a component (with props)
+- Use ES2015 modules
 
-### Module Bundler
+### Components
 
-A module bundler let's build a set of AMD or CommonJS modules into a single
-file.
+Pieces of functionality can be extracted into *components*, re-usable pieces of
+UI that are classes extending `React.Component`.
 
-Some examples:
+We'll use ES2015 modules.
 
-- [Webpack](https://webpack.github.io/)
-- [Browserify](http://browserify.org/)
-- [Rollup.js](http://rollupjs.org/)
-
-The react community seems to like Webpack, so let's use that.
+### Making Babel Work for Us (again)
 
 ```
-npm install --save-dev webpack
+npm install --save-dev babel-preset-es2015
 ```
 
-And to use it, we'll need to set up some configuration (see `webpack.config.js`).
+The above preset will let babel turn es2015 modules into something all browsers
+can use. It should be added to `.babelrc`.
 
-Then run...
+Now we can extract the hello world stuff into it's own component and import it.
 
-```
-./node_modules/.bin/webpack
-```
+See the `src` directory.
 
-### Using the Webpack Dev Server
+### Props (or Properties)
 
-The [webpack dev server](https://webpack.github.io/docs/webpack-dev-server.html)
-provides a way to server your bundle and update it as changes happen.
+Props are the values you pass into a react component via XML attributes.
 
-```
-npm install --save-dev webpack-dev-server
+```jsx
+<ComponentName thisIs="A Prop" />
 ```
 
-Then run...
-
-```
-./node_modules/.bin/webpack-dev-server --inline
-```
-
-And navigate to [http://localhost:8080/](http://localhost:8080/).
-
-Test out making a change to `src/app.js`.
+Our new component uses props to pass in a name of someone to greet.
