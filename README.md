@@ -8,64 +8,34 @@ see the first step.
 The goal here is to get a really quick overview of [React](https://facebook.github.io/react/)
 by taking an example app from the first steps through routing.
 
-# Step 1
+# Step 2 (The Bundling)
 
 ### Goals
 
-- Get a first look at JSX
-- Compile JSX with babel
-- Render something in the browser using ReactJS
+- Use a module bundler to get all dependencies in one place.
+- Explore the webpack dev server
 
-### JSX?
+### Module Bundler
 
-Think of it like [JavaScript mixed with XML](https://facebook.github.io/react/docs/jsx-in-depth.html).
+A module bundler let's build a set of AMD or CommonJS modules into a single
+file.
 
-Checkout `src/app.js` for an example.
+Some examples:
 
-XML-like tags embedded withing JavaScript. A pre-processor like
-[babel](http://babeljs.io/) is used to turn that JSX into plain JavaScript.
+- [Webpack](https://webpack.github.io/)
+- [Browserify](http://browserify.org/)
+- [Rollup.js](http://rollupjs.org/)
 
-
-### We'll need a few things
-
-The react core library as well as its DOM component (which is used to render
-react's JSX stuff into the browser).
+The react community seems to like Webpack, so let's use that.
 
 ```
-npm install --save react react-dom
+npm install --save-dev webpack
 ```
 
-And we'll also need babel (core as well as cli) and a babel "preset" (set of
-plugins/transforms) for react.
+And to use it, we'll need to set up some configuration (see `webpack.config.js`).
+
+Then run...
 
 ```
-npm install --save-dev babel-core babel-cli babel-preset-react
-```
-
-### Compile JSX
-
-Babel requires a [configuration file](https://babeljs.io/docs/usage/babelrc/).
-Ours will include the React preset.
-
-With that in place, we can compile.
-
-```
-./node_modules/.bin/babel --recursive -d build src/
-```
-
-Or, let's wrap that up in an npm script:
-
-```json
-
-{
-    "scripts": {
-        "compile": "babel --recursive -d build src/"
-    }
-}
-```
-
-And then...
-
-```
-npm compile
+./node_modules/.bin/webpack
 ```
