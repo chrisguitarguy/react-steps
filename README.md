@@ -13,6 +13,8 @@ by taking an example app from the first steps through routing.
 ### Goals
 
 - Build more of a real application structure
+- Take a peek at the react dev tools
+
 
 ### Nesting Components
 
@@ -33,3 +35,9 @@ Components can choose whether or not to render those children.
     <Hello />
 </App>
 ```
+
+### React Dev Tools
+
+The react team [offers a few browser extensions](https://facebook.github.io/react/blog/2015/09/02/new-react-developer-tools.html)
+to let you view the structure of your application and inspect component
+props/state.
