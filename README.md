@@ -8,39 +8,28 @@ see the first step.
 The goal here is to get a really quick overview of [React](https://facebook.github.io/react/)
 by taking an example app from the first steps through routing.
 
-# Step 3 (Components & ES What)
+# Step 4 (All My Components Children)
 
 ### Goals
 
-- Extract the Hello, World into a component (with props)
-- Use ES2015 modules
+- Build more of a real application structure
 
-### Components
+### Nesting Components
 
-Pieces of functionality can be extracted into *components*, re-usable pieces of
-UI that are classes extending `React.Component`.
+Custom components can be nested just like HTML can be nested, letting you build
+bigger structures and re-usable pieces. Take a look in `src/components`.
 
-We'll use ES2015 modules.
+### Children
 
-### Making Babel Work for Us (again)
+JSX passed into your component as children becomes available at
+`this.props.children`.
 
-```
-npm install --save-dev babel-preset-es2015
-```
-
-The above preset will let babel turn es2015 modules into something all browsers
-can use. It should be added to `.babelrc`.
-
-Now we can extract the hello world stuff into it's own component and import it.
-
-See the `src` directory.
-
-### Props (or Properties)
-
-Props are the values you pass into a react component via XML attributes.
+Components can choose whether or not to render those children.
 
 ```jsx
-<ComponentName thisIs="A Prop" />
+<App>
+    // these <App /> can render these or not.
+    <Header />
+    <Hello />
+</App>
 ```
-
-Our new component uses props to pass in a name of someone to greet.
