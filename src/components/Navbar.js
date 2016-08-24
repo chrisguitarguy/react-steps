@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { Link } from 'react-router';
 
 export default class Navbar extends Component {
     render() {
@@ -6,8 +7,13 @@ export default class Navbar extends Component {
             <div className="navbar navbar-inverse navbar-static-top">
                 <div className="container-fluid">
                     <div className="navbar-header">
-                        <a className="navbar-brand" href="#">React Steps</a>
+                        <Link className="navbar-brand" to="/">React Steps</Link>
                     </div>
+                    <ul className="nav navbar-nav">
+                        // doesn't handle the `className="active" stuff correctly
+                        <li><Link to="/stateful-hello">Stateful Hello</Link></li>
+                        <li><Link to="/uncontrolled-hello">Uncontrolled Hello</Link></li>
+                    </ul>
                 </div>
             </div>
         );

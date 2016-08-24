@@ -8,50 +8,58 @@ see the first step.
 The goal here is to get a really quick overview of [React](https://facebook.github.io/react/)
 by taking an example app from the first steps through routing.
 
-# Step 5 (State of the Component)
+# Step 6 (Separate Pages?)
 
 ### Goals
 
-- See how component state works
-- Look at our first forms
+- Use react router to split up our hello things
 
-### In Addition to Props Components can Have State
+### Routing?
 
-While props come from elsewhere, state is manged by the component itself.
+In web-style MVC terms (think Rails, Django, Laravel, or Symfony) routing
+usually means mapping the incoming request to a *controller* or *view* callback
+that can render something back to the user.
 
-The easiest way to think about component state is thinking about how almost
-every HTML and other JavaScript library works.
+With a single page react app, routing -- specifically `react-router` -- is about
+mapping the URL (or URL hash) to a component.
 
-- Forms in plain HTML managed their own state (you type, the DOM displays what
-  what input).
-- Things like bootstrap's tabs hide or show DOM elements. Active classes are
-  added to DOM elements to keep track of what's visibile.
+`react-router` is pretty much the community standard and is under Facebook's
+umbrella now.
 
-Both of those examples are good candidate to keep in component state.
+### React Router
 
-The state of a component is changed by calling `this.setState` and whenver state
-does change, react triggers a re-render.
+You declare your routes just like any other component: with JSX. You give each
+route a `component` to render. Nested routes are build a component hierarchy for
+you.
 
-### React + Forms
+So something like this...
 
-React has a concept of [controlled](https://facebook.github.io/react/docs/forms.html#controlled-components)
-vs [uncontrolled](https://facebook.github.io/react/docs/forms.html#uncontrolled-components)
-forms. Uncontrolled work just like plain old HTML forms: the DOM (or React
-itself) manages the state. Controlled are the opposite, you component has to
-handle input change and display by providing `onChange` and `value` props to
-your form's inputs.
+```jsx
+<Route path="/" component={App}>
+    <IndexRoute component={Hello} />
+</Route>
+```
 
-See `src/components/StatefulHello.js` for an example of a controlled form
-and `src/components/UncontrolledHello.js` for an uncontrolled form.
+...will render `<App><Hello /></App>` at the url `/`.
 
-### Refs
+We'll use react routers browser history to get clean URLs.
 
-To facilitate the `UncontrolledHello` we used [a `ref`](https://facebook.github.io/react/docs/more-about-refs.html).
-Refs are a way to "react out" to components rendered and inspect them or invoke
-methods on them.
+### Webpack Dev Server Integration
 
-### A quick note about uncontrolled forms
+A new setting is required in `webpack.confg.js`:
 
-Don't use them. Seriously. It's nice to not write a bunch of boilerplate and
-`onChange` handlers, but practically they are a pain. A library can help you
-with the form change handlers and validation.
+```js
+module.exports = {
+    // ...
+    devServer: {
+        historyApiFallback: true
+    }
+};
+```
+
+This will route all non-file requests to our `index.html` file.
+
+### Linking
+
+Rather than use a normal anchor tag, we use `<Link to={...} />` from the react
+router library.
