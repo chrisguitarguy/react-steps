@@ -8,58 +8,70 @@ see the first step.
 The goal here is to get a really quick overview of [React](https://facebook.github.io/react/)
 by taking an example app from the first steps through routing.
 
-# Step 6 (Separate Pages?)
+# Step 7 (Test All the Things)
 
 ### Goals
 
-- Use react router to split up our hello things
+- Write some tests
 
-### Routing?
 
-In web-style MVC terms (think Rails, Django, Laravel, or Symfony) routing
-usually means mapping the incoming request to a *controller* or *view* callback
-that can render something back to the user.
+### Test Frameworks
 
-With a single page react app, routing -- specifically `react-router` -- is about
-mapping the URL (or URL hash) to a component.
+Generally speaking the [Mocha](https://mochajs.org/) or
+[Jest](https://facebook.github.io/jest/) are the two test frameworks that get
+used. [Chai](http://chaijs.com/) or [expect](https://github.com/mjackson/expect)
+to do assertions.
 
-`react-router` is pretty much the community standard and is under Facebook's
-umbrella now.
+Additionally [Karma](https://karma-runner.github.io) is sometimes use to execute
+tests in the browser.
 
-### React Router
+We'll stick with running our tests just from the command line use only mocha and
+expect.
 
-You declare your routes just like any other component: with JSX. You give each
-route a `component` to render. Nested routes are build a component hierarchy for
-you.
+We also need to make mocha play nice with our babel compiliation stuff. We'll
+use [babel's require override for that](https://babeljs.io/docs/usage/require/).
 
-So something like this...
+We also need [jsdom](https://github.com/tmpvar/jsdom) to fake the a browser's
+DOM model.
 
-```jsx
-<Route path="/" component={App}>
-    <IndexRoute component={Hello} />
-</Route>
+```
+npm install --save-dev mocha expect babel-register jsdom
 ```
 
-...will render `<App><Hello /></App>` at the url `/`.
+### What Should I Test?
 
-We'll use react routers browser history to get clean URLs.
+Behavior. The first components written in this repo had no behavior. Now we
+have a few examples of behavior to test:
 
-### Webpack Dev Server Integration
+- The `Hello` component should display the name passed to its props
+- The `StatefulHello` should update the displayed name whenever the form input
+  changes.
+- The `UncontrolledHello` component should change its displayed greeting when
+  the form is submitted.
 
-A new setting is required in `webpack.confg.js`:
+All tests will do some setup, an action (like changing the form fields or
+submitting), and verification to ensure that we we expected to happen happened.
 
-```js
-module.exports = {
-    // ...
-    devServer: {
-        historyApiFallback: true
-    }
-};
+### React Test Utils
+
+The react team provides a set of [testing utilities](https://facebook.github.io/react/docs/test-utils.html)
+to make things like finding components and DOM elements easy.
+
+```
+npm install --save-dev react-addons-test-utils
 ```
 
-This will route all non-file requests to our `index.html` file.
+### Test Bootstrapping
 
-### Linking
+See `test/bootstrap.js`.
 
-Rather than use a normal anchor tag, we use `<Link to={...} />` from the react
-router library.
+It sets up some global variables (like `document` and `window`) as well as puts
+a few things like `expect` and the react test utils in globals as well.
+
+### Actually Running the Tests
+
+```
+./node_modules/.bin/mocha --compilers js:babel-register --recursive --require ./test/bootstrap.js
+```
+
+Be sure to look in the `test` directory for the tests themselves.
