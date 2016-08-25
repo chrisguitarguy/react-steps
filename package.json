@@ -9,6 +9,7 @@
     "test": "mocha --compilers js:babel-register --recursive --require ./test/bootstrap.js"
   },
   "dependencies": {
+    "eventemitter3": "^1.2.0",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
     "react-router": "^2.7.0"

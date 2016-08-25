@@ -5,6 +5,7 @@ import App from './components/App';
 import Hello from './components/Hello';
 import StatefulHello from './components/StatefulHello';
 import UncontrolledHello from './components/UncontrolledHello';
+import Todos from './components/Todos';
 
 function createRouter(history) {
     return (
@@ -13,6 +14,7 @@ function createRouter(history) {
                 <IndexRoute component={Hello} />
                 <Route path="stateful-hello" component={StatefulHello} />
                 <Route path="uncontrolled-hello" component={UncontrolledHello} />
+                <Route path="todos" component={Todos} />
             </Route>
         </Router>
     );

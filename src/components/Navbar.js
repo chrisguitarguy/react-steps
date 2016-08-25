@@ -10,9 +10,9 @@ export default class Navbar extends Component {
                         <Link className="navbar-brand" to="/">React Steps</Link>
                     </div>
                     <ul className="nav navbar-nav">
-                        // doesn't handle the `className="active" stuff correctly
                         <li><Link to="/stateful-hello">Stateful Hello</Link></li>
                         <li><Link to="/uncontrolled-hello">Uncontrolled Hello</Link></li>
+                        <li><Link to="/todos">Todos</Link></li>
                     </ul>
                 </div>
             </div>
