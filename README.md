@@ -8,45 +8,57 @@ see the first step.
 The goal here is to get a really quick overview of [React](https://facebook.github.io/react/)
 by taking an example app from the first steps through routing.
 
-# Step 8 (Flux)
+# Step 9 (Higher Order Components)
 
 ### Goals
 
-- Get a quick overview of the flux architecture
-- Write a simple, in-memory TODO app
+- Build a higher order component to abstract away listening to store changes
 
-### Flux
+### Higher Order Components?
 
-[Flux](https://facebook.github.io/flux/) is an application architecture.
-Definitely check out the docs, but in brief there are four components:
+The JavaScript community's invent term for the [Decorator Pattern](https://en.wikipedia.org/wiki/Decorator_pattern).
 
-- Actions: Similar to events, actions instruct the system as a whole to
-  do something. (*add a todo*, *delete a todo*, etc).
-- A dispatcher: An object through which actions are sent.
-- Stores: One or more objects that listen to the actions sent through the
-  dispatcher and (optionally) do something based on them. Stores are also where
-  your application's data lives.
-- Views: React components in our case, but these can be anything. Views react to
-  user inputs to dispatch actions as well as display the data from stores.
+The idea is you wrap another component up with a component class scoped via a
+closure.
 
-The core idea is that data flows in a single direction. Views -- or other things
--- dispatch actions and stores handle them. When a store updates its state, it
-emits events the views can subscribe too so they are notified of and can display
-the changes.
+The basic pattern looks like this...
 
-### Pros
 
-- Very decoupled and easy to refactor.
-- Unidirectional data flow tends to make how data changed a bit clearer
-  (subjective).
+```js
+import React, { Component } from 'react';
 
-### Cons
+// args here are whatever you need for the component to do its job
+export function higherOrder(one, two, three) {
+    // return a function that accepts a react component class
+    return function (WrappedComponent) {
+        class HigherOrderComponent extends Component {
+            // do stuff with the component lifecylcle here. Like subscribing
+            // to stores on mount.
+            // https://facebook.github.io/react/docs/component-specs.html
 
-- Traditional "flux" has a lot of global state, can make things hard to test
-- Ends up a bit more verbose (subjective).
+            // render the original component
+            render() {
+                // you can pass whatever props you want to the wrapped component
+                // in this case, we're passing whatever was given to the component
+                return React.createElement(WrappedComponent, this.props);
+            }
+        }
 
-### Even Moar Dependencies
-
+        // return the higher order component
+        return HigherOrderComponent;
+    };
+}
 ```
-npm install --save flux eventemitter3
+
+And the usage of that...
+
+```js
+export const Whatever = higherOrder('one', 'two', 'three')(OtherComponent);
 ```
+
+### Advantages?
+
+It's another form of code re-use.
+
+In the case of our `connectToStore` component, it makes the actual component its
+wrapping a bit more testable (it's no longer bound to global state).
